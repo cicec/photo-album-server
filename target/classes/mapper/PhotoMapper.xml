@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cicec.dao.PhotoMapper">
+	<select id="getPhotoList" parameterType="int" resultType="photo">
+		select * from photo where user_id=#{userId} and album_id=#{albumId}
+	</select>
+
+	<select id="getPhotoForId" parameterType="int" resultType="photo">
+		select * from photo where id=#{id}
+	</select>
+
+	<insert id="addPhoto" parameterType="photo">
+		insert into photo (user_id,
+		album_id,
+		name, photo, modified, size, type) values
+		(#{user_id},
+		#{album_id},
+		#{name}, #{photo},
+		#{modified}, #{size},
+		#{type})
+	</insert>
+	
+	<delete id="removePhotosForAlbum" parameterType="int">
+		delete from photo where user_id=#{userId} and album_id=#{albumId}
+	</delete>
+	
+	<delete id="removePhotoForId" parameterType="int">
+		delete from photo where id=#{photoId} and user_id=#{userId}
+	</delete>
+</mapper>
