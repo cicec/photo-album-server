@@ -42,6 +42,22 @@ public class PhotoController {
         return rm;
     }
 
+    @RequestMapping(value = "/getphoto/{photoId}", method = RequestMethod.GET)
+    public @ResponseBody
+    PhotoResponseMessage getPhoto(@PathVariable("photoId") int phototId, HttpSession session) {
+        PhotoResponseMessage rm;
+        User user = (User) session.getAttribute("currentUser");
+        if (user != null) {
+            List<Photo> photoList = photoService.getPhotoForId(phototId);
+            Photo photo = photoList.get(0);
+            photo.setPhoto(PathConfig.onlineImagePath + "/" + photo.getPhoto());
+            rm = new PhotoResponseMessage(1, "图片获取成功", photoList);
+        } else {
+            rm = new PhotoResponseMessage(0, "用户未登录", null);
+        }
+        return rm;
+    }
+
     @RequestMapping(value = "/addphoto", method = RequestMethod.POST)
     public @ResponseBody
     ResponseMessage addPhotos(@RequestBody Photo photo, HttpSession session) {
