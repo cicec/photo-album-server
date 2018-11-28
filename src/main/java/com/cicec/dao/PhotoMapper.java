@@ -2,12 +2,15 @@ package com.cicec.dao;
 
 import java.util.List;
 
+import com.cicec.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
 import com.cicec.pojo.Photo;
 
 public interface PhotoMapper {
 	public List<Photo> getPhotoList(@Param("userId") int userId, @Param("albumId") int albumId);
+
+	public List<Photo> getPhotoListForUser(User user);
 
 	public List<Photo> getPhotoForId(int id);
 	

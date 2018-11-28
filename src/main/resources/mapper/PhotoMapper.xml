@@ -8,6 +8,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		select * from photo where user_id=#{userId} and album_id=#{albumId}
 	</select>
 
+	<select id="getPhotoListForUser" parameterType="user" resultType="photo">
+		select * from photo where user_id=#{id}
+	</select>
+
 	<select id="getPhotoForId" parameterType="int" resultType="photo">
 		select * from photo where id=#{id}
 	</select>
